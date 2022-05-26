@@ -38,6 +38,10 @@ always @(*) begin
     `OP_BGE: result = ($signed(in_a) >= $signed(in_b)) ? 0 : 1; // sgined a가 signed b 이상이면 0 (check가 1이됨)
     `OP_BGEU: result = (in_a >= in_b) ? 0 : 1;
     `OP_BNE: result = !(in_a - in_b); //둘이 다른 경우에 0
+
+    //LAB03에서 추가
+    `OP_EQU: result = in_b; //lui에서 사용... alu_in_2를 그대로 출력 
+
     `OP_EEE: result = 32'h0000_0000;
     //////////////////////////////////////////////////////////////////////////
     default:  result = 32'h0000_0000;
@@ -63,6 +67,8 @@ always @(*) begin
     `OP_BGE: check = (($signed(in_a) >= $signed(in_b)) ? 0 : 1) ? 0 : 1; // sgined a가 signed b 이상이면 0 (check가 1이됨)
     `OP_BGEU:check = ((in_a >= in_b) ? 0 : 1) ? 0 : 1;
     `OP_BNE: check = (!(in_a - in_b)) ? 0 : 1;
+
+    `OP_EQU: check = in_b ? 0 : 1;
     //////////////////////////////////////////////////////////////////////////
     default:  check = 1'b0;
   endcase

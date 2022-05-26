@@ -22,6 +22,12 @@ always @(*) begin
     7'b1100011: sextimm = { {19{instruction[31]}} , instruction[31], instruction[7], instruction[30:25], instruction[11:8],1'b0 }; //B-type
     7'b1101111: sextimm = { {11{instruction[31]}} , instruction[31], instruction[19:12], instruction[20], instruction[30:21], 1'b0 }; //JAL
     7'b1100111: sextimm = { {20{instruction[31]}} , instruction[31:20] }; //JALR I-type과 동일함
+
+    ///////LAB03에서 추가~!
+    7'b0110111: sextimm = { instruction[31:12] , {12{1'b0}} }; // lui
+    7'b0010111: sextimm = { instruction[31:12] , {12{1'b0}} }; // AUIPC로 lui와 동일
+    
+
     //////////////////////////////////////////////////////////////////////////
     default:    sextimm = 32'h0000_0000;
   endcase

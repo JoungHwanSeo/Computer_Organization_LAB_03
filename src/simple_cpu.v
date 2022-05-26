@@ -446,15 +446,51 @@ wire [DATA_WIDTH-1:0] alu_in_1;
 wire [DATA_WIDTH-1:0] alu_in_2;
 /////////////////////////////////////////////////////////////
 
+wire [DATA_WIDTH-1:0] EX_ALU_result_tmp; // 여기서 lui, AUIPC까지 고려해서 가져갈거임
+
 /* m_alu */
 alu m_alu(
   .alu_func (EX_ALU_func),
   .in_a     (alu_in_1), 
   .in_b     (alu_in_2), 
 
-  .result   (EX_ALU_result),
+  //.result   (EX_ALU_result),
+  .result   (EX_ALU_result_tmp),
   .check    (EX_check)
 );
+
+//////LUI추가 하면서 추가구현 LAB03
+
+///lui, auipc에서 rd에 써질 값들
+wire [DATA_WIDTH-1:0] lui_val;
+wire [DATA_WIDTH-1:0] auipc_val;
+
+assign lui_val = EX_sextimm;
+assign auipc_val = EX_sextimm + EX_PC;
+
+reg [1:0] ALU_result_sel;
+always@(*) begin
+  if(EX_opcode == 7'b0110111) begin //lui
+    ALU_result_sel = 2'b01;
+  end
+  else if(EX_opcode == 7'b0010111) begin // AUIPC
+    ALU_result_sel = 2'b10; 
+  end
+  else begin
+    ALU_result_sel = 2'b00;
+  end
+end
+
+mux_3x1 m_alu_result_mux(
+  .select(ALU_result_sel),
+  .in1(EX_ALU_result_tmp),
+  .in2(lui_val),
+  .in3(auipc_val),
+
+  .out(EX_ALU_result)
+); //여기서 비로소 마지막 EX_ALU_result가 나옴
+
+/////////////////////LAB03
 
 //imm선택할지 rs2 선택할지 mux!
 mux_2x1 m_alu_mux( 

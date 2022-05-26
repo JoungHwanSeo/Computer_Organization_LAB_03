@@ -42,20 +42,16 @@ always @(*) begin
       7'b1100111: controls = 10'b10_000_00_011; //JALR[10] result를 target address로 보내야함 + register는 update되어야 함
       //JUMP의 경우 모두 ALU는 덧셈연산!!!
       //////////////////////////////////////////////////////////////////////////
+
+      ///LAB 03추가
+      /////둘 다 aluop어떻게 하든 상관 x 따로 계산해서 alu_result에 최종적으로 mux써줄거임
+      7'b0110111: controls = 10'b00_000_00_011;  // lui rd에 imm값 그대로 써야함  alu_in_2가 imm이 되도록 alusrc = 1
+
+      7'b0010111: controls = 10'b00_000_00_011; //AUIPC로 lui와 동일 
+
+
+
       
-    // 7'b0110011: controls = 10'b00_000_10_001; // R-type
-
-    // //////////////////////////////////////////////////////////////////////////
-    // // TODO : Implement signals for other instruction types
-    // 7'b0010011: controls = 10'b00_000_11_011;  //arithmetic연산 I-type ALUop는 2'b11
-    // 7'b0000011: controls = 10'b00_011_00_011; //I-type , Load
-    // 7'b0100011: controls = 10'b00_000_00_110; //S-type , Store
-
-    // //branch다시보기 ALU를 공유해야하는경우...!!!!!!!!!!!!!
-    // 7'b1100011: controls = 10'b01_100_01_000; //branch 인경우 jump가 [01]
-    // 7'b1101111: controls = 10'b11_000_00_001; //JAL[11] 이건 좀 다른 부분에서 추가구현이 필요할듯 + register는 update되어야 함 
-    // 7'b1100111: controls = 10'b10_000_00_011; //JALR[10] result를 target address로 보내야함 + register는 update되어야 함
-    // //JUMP의 경우 모두 ALU는 덧셈연산!!!
     // //////////////////////////////////////////////////////////////////////////
 
     default:    controls = 10'b00_000_00_000;

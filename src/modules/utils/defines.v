@@ -18,6 +18,8 @@
 //내가 새로 정의한 연산임
 `define OP_BNE 4'b1100  
 
+`define OP_EQU 4'b1101 // LAB03에서 추가 alu_in_2를 그대로 출력 for lui
+
 `define OP_EEE  4'b1111   // error
 
 `endif // __defines_vh__
