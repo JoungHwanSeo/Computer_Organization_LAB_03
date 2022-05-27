@@ -566,6 +566,8 @@ mux_3x1 EX_write_data_mux(
   .out(EX_Writedata)
 );
 
+//forwarded_alu_second는 store의 write data와 다를텐데...... 이건 현재 MEM에서 결과물이 들어가야 할텐데...
+
 wire EX_forwardM;  //DATA memory 들어가기 전 mux logic
 
 wire [4:0] MEM_rs2; //store, load연속인 경우 stall 위한 wire

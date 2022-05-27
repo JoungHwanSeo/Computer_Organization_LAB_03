@@ -116,8 +116,14 @@ module idex_reg #(
 
       ex_rd  <= 0;
 
+      //ex_opcode <= id_opcode;
+       ex_opcode <= 7'b0000000;  ///LAB03하면서 바꿔봄... 성공!!!!!!!!!!!!!!!!!!!!!!!!!!!! ㅠㅠㅠㅠㅠ
+       ///ㅇㄴ 진짜 괜히 성능 찔끔 올리겠다고 store에서 load stall한번 안하게 하려다가 버그생김 하...
+       //10시간 증발 ^^
 
-      ex_opcode <= id_opcode;
+
+
+      
     end
 
     else begin

@@ -17,7 +17,10 @@ initial begin
   position = $ftell(fd);
   $fclose(fd);
 
-  n_instructions = position / (32 + 1);  // 32-bit instr + \n
+ // n_instructions = position / (32 + 1);  // 32-bit instr + \n
+
+  n_instructions = position / (32 + 2);  // 32-bit instr + \n
+  //\n이 2bit로 계산되는건가...? LAB03d에서 바꿔봄
 
   LAST_PC = (n_instructions - 1) * 4;
 
